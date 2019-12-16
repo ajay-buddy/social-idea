@@ -21,15 +21,15 @@ after_success:
   - docker push ajayotsofts/social-server
   - docker push ajayotsofts/social-worker
 
-deploy:
-  provider: elasticbeanstalk
-  region: us-west-1
-  app: social-docker
-  env: socialDocker-env
-  bucket_name: elasticbeanstalk-us-west-1-306476627547
-  bucket_path: docker-social
-  on:
-    branch: master
-  access_key_id: $AWS_ACCESS_KEY
-  secret_access_key:
-    secure: $AWS_SECRET_KEY
+# deploy:
+#   provider: elasticbeanstalk
+#   region: us-west-1
+#   app: social-docker
+#   env: socialDocker-env
+#   bucket_name: elasticbeanstalk-us-west-1-306476627547
+#   bucket_path: docker-social
+#   on:
+#     branch: master
+#   access_key_id: $AWS_ACCESS_KEY
+#   secret_access_key:
+#     secure: $AWS_SECRET_KEY
