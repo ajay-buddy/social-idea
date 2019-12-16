@@ -3,28 +3,28 @@
   "containerDefinitions": [
     {
       "name": "client",
-      "image": "stephengrider/multi-client",
+      "image": "ajayotsofts/social-client",
       "hostname": "client",
       "essential": false,
       "memory": 128
     },
     {
       "name": "server",
-      "image": "stephengrider/multi-server",
+      "image": "ajayotsofts/social-server",
       "hostname": "api",
       "essential": false,
       "memory": 128
     },
     {
       "name": "worker",
-      "image": "stephengrider/multi-worker",
+      "image": "ajayotsofts/social-worker",
       "hostname": "worker",
       "essential": false,
       "memory": 128
     },
     {
       "name": "nginx",
-      "image": "stephengrider/multi-nginx",
+      "image": "ajayotsofts/social-nginx",
       "hostname": "nginx",
       "essential": true,
       "portMappings": [
