@@ -1,0 +1,35 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t ajayotsofts/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run ajayotsofts/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t ajayotsofts/social-client ./client
+  - docker build -t ajayotsofts/social-nginx ./nginx
+  - docker build -t ajayotsofts/social-server ./server
+  - docker build -t ajayotsofts/social-worker ./worker
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take those images and push them to docker hub
+  - docker push ajayotsofts/social-client
+  - docker push ajayotsofts/social-nginx
+  - docker push ajayotsofts/social-server
+  - docker push ajayotsofts/social-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: us-west-1
+  app: social-docker
+  env: socialDocker-env
+  bucket_name: elasticbeanstalk-us-west-1-306476627547
+  bucket_path: docker-social
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY
